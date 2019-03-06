@@ -38,4 +38,12 @@ RUN npm --loglevel error install && \
     rm -rf /usr/lib/node_modules/npm/doc && \
     rm -rf /usr/lib/node_modules/npm/html
 
+# Run as non-root
+RUN addgroup -g 30000 -S appuser && \
+adduser -u 30000 -S appuser -G appuser
+
 COPY . $WORKING_DIRECTORY
+
+RUN chown -R 30000:30000 $WORKING_DIRECTORY
+
+USER 30000

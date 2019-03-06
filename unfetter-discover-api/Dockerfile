@@ -51,5 +51,14 @@ RUN swagger validate ./api/swagger/swagger.yaml
 EXPOSE 3000
 # Open debugging ports
 EXPOSE 5555
+
+# Run as non-root
+RUN addgroup -g 30000 -S appuser && \
+adduser -u 30000 -S appuser -G appuser
+
+RUN chown -R 30000:30000 $WORKING_DIRECTORY
+
+USER 30000
+
 # Start Application
 CMD [ "npm --loglevel error", "start" ]

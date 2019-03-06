@@ -30,4 +30,12 @@ RUN find / -name "cb-never*.tgz" -delete && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
 
+# Run as non-root
+RUN addgroup -g 30000 -S appuser && \
+adduser -u 30000 -S appuser -G appuser
+
 ADD . $WORKING_DIRECTORY
+
+RUN chown -R 30000:30000 $WORKING_DIRECTORY
+
+USER 30000

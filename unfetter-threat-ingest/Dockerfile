@@ -35,4 +35,10 @@ RUN find / -name "cb-never*.tgz" -delete && \
 COPY . $WORKING_DIRECTORY
 RUN npm run clean && npm run build
 
+# Run as non-root
+RUN addgroup -g 30000 -S appuser && \
+adduser -u 30000 -S appuser -G appuser
+
+RUN chown -R 30000:30000 $WORKING_DIRECTORY
+
 EXPOSE 5010
