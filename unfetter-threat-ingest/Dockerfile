@@ -42,3 +42,5 @@ adduser -u 30000 -S appuser -G appuser
 RUN chown -R 30000:30000 $WORKING_DIRECTORY
 
 EXPOSE 5010
+
+USER 30000
